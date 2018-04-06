@@ -167,7 +167,7 @@ vtkImageFusion::RequestData(vtkInformation *vtkNotUsed(request),
 
     int numberOfComponents1 = imageIn1->GetNumberOfScalarComponents();
     int numberOfComponents2 = imageIn2->GetNumberOfScalarComponents();
-    if (numberOfComponents1 != 4 or numberOfComponents2 != 4) {
+    if (numberOfComponents1 != 4 || numberOfComponents2 != 4) {
         vtkErrorMacro("Input images should be RGB (3 channels)");
         return 0;
     }
@@ -180,13 +180,6 @@ vtkImageFusion::RequestData(vtkInformation *vtkNotUsed(request),
     Mat out{dimensions[1], dimensions[0], CV_8UC3, imageOut->GetScalarPointer()};
     Mat in1{dimensions[1], dimensions[0], CV_8UC4, imageIn1->GetScalarPointer()};
     Mat in2{dimensions[1], dimensions[0], CV_8UC4, imageIn2->GetScalarPointer()};
-    Mat in1correct, in2correct;
-    flip(in1, in1correct, 0);
-    flip(in2, in2correct, 0);
-    cvtColor(in1correct, in1correct, CV_RGBA2BGRA);
-    cvtColor(in2correct, in2correct, CV_RGBA2BGRA);
-    imwrite("in1.png", in1correct);
-    imwrite("in2.png", in2correct);
 
     Mat img1, img2;
     in1.convertTo(img1, CV_32F, 1.0 / 255.0);
@@ -198,16 +191,6 @@ vtkImageFusion::RequestData(vtkInformation *vtkNotUsed(request),
     Scalar backgroundColor{0.3, 0.3, 0.3};
     AOverB(img1, img2, backgroundColor, img1Over2);
     AOverB(img2, img1, backgroundColor, img2Over1);
-    Mat preparedIn1, preparedIn2;
-    img1Over2.convertTo(preparedIn1, CV_8U, 255.0);
-    img2Over1.convertTo(preparedIn2, CV_8U, 255.0);
-
-    flip(preparedIn1, preparedIn1, 0);
-    flip(preparedIn2, preparedIn2, 0);
-    cvtColor(preparedIn1, preparedIn1, CV_RGBA2BGRA);
-    cvtColor(preparedIn2, preparedIn2, CV_RGBA2BGRA);
-    imwrite("prepared-in1.png", preparedIn1);
-    imwrite("prepared-in2.png", preparedIn2);
 
     cvtColor(img1Over2, img1Over2, CV_RGB2HSV);
     cvtColor(img2Over1, img2Over1, CV_RGB2HSV);
@@ -231,12 +214,9 @@ vtkImageFusion::RequestData(vtkInformation *vtkNotUsed(request),
     cvtColor(result, result, CV_HSV2RGB);
     result.convertTo(result, CV_8U, 255.0);
     result.copyTo(out);
-    Mat resultCorrect;
-    flip(result, resultCorrect, 0);
-    cvtColor(resultCorrect, resultCorrect, CV_RGB2BGR);
-    imwrite("out.png", resultCorrect);
 
     infoOut->Set(vtkStreamingDemandDrivenPipeline::UPDATE_EXTENT(), extentIn1, 6);
     infoOut->Set(vtkStreamingDemandDrivenPipeline::WHOLE_EXTENT(), extentIn1, 6);
+
     return 1;
 }

@@ -2,6 +2,8 @@
 
 #include <vtkMRMLDisplayNode.h>
 
+#include "vtkSlicerProjectiveTextureMappingModuleMRMLExport.h"
+
 class vtkMRMLModelNode;
 class vtkMRMLVolumeNode;
 class vtkMRMLCameraNode;
@@ -12,7 +14,7 @@ class vtkMRMLColorNode;
  *
  * Stores all data about an projective texture mapping visualisation.
  */
-class vtkMRMLProjectiveTextureMappingDisplayNode : public vtkMRMLDisplayNode {
+class VTK_SLICER_PROJECTIVETEXTUREMAPPING_MODULE_MRML_EXPORT vtkMRMLProjectiveTextureMappingDisplayNode : public vtkMRMLDisplayNode {
 public:
     /**
      * @brief Possible event types that are proxied from the referenced nodes

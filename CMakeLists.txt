@@ -1,5 +1,7 @@
 ﻿cmake_minimum_required(VERSION 3.5)
 
+find_package(Slicer COMPONENTS ConfigurePrerequisites REQUIRED)
+
 project(NeuroImaging)
 
 #-----------------------------------------------------------------------------
@@ -17,12 +19,10 @@ A 3D visualisation of the thermal images is created by reprojecting the thermal 
 The reprojected thermal visualisation is combined with an arbitrary MRI visualisation using methods of image fusion.")
 set(EXTENSION_ICONURL "http://www.example.com/Slicer/Extensions/NeuroImaging.png")
 set(EXTENSION_SCREENSHOTURLS "http://www.example.com/Slicer/Extensions/NeuroImaging/Screenshots/1.png")
-set(EXTENSION_DEPENDS "OpenIGTLinkIF VolumeRendering") # Specified as a space separated string, a list or 'NA' if any
+set(EXTENSION_DEPENDS "") # Specified as a space separated string, a list or 'NA' if any
 
 #-----------------------------------------------------------------------------
 # Extension dependencies
-set(Slicer_DIR "/home/tobias/Programme/Slicer-SuperBuild-Release/Slicer-build")
-set(CMAKE_INSTALL_PREFIX ${Slicer_DIR})
 find_package(Slicer REQUIRED)
 include(${Slicer_USE_FILE})
 

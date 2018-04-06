@@ -1,3 +1,5 @@
+#define _USE_MATH_DEFINES
+
 #include "vtkOpenGLProjectiveTextureMapper.h"
 
 #include <vtkMatrix4x4.h>
@@ -35,18 +37,21 @@ vtkOpenGLProjectiveTextureMapper::PrintSelf(std::ostream &os, vtkIndent indent) 
 
 void
 vtkOpenGLProjectiveTextureMapper::RenderPieceStart(vtkRenderer *ren, vtkActor *act) {
-    this->Superclass::RenderPieceStart(ren, act);
     this->ProjectedTexture->Update();
+	this->DepthTexture->Update();
+
     this->ProjectedTexture->Load(ren);
-    this->DepthTexture->Update();
     this->DepthTexture->Load(ren);
+
+	this->Superclass::RenderPieceStart(ren, act);
 }
 
 void
 vtkOpenGLProjectiveTextureMapper::RenderPieceFinish(vtkRenderer *ren, vtkActor *act) {
+	this->Superclass::RenderPieceFinish(ren, act);
+
     this->DepthTexture->PostRender(ren);
     this->ProjectedTexture->PostRender(ren);
-    this->Superclass::RenderPieceFinish(ren, act);
 }
 
 void

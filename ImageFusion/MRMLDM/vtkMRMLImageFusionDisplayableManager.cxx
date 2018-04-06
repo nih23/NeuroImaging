@@ -636,7 +636,7 @@ vtkMRMLImageFusionDisplayableManager::UpdateInputImages() {
 
     vtkViewElement *viewElement = iter->second;
 
-    if (viewElement->VolumeRenderer->GetViewProps()->GetNumberOfItems() < 1 or
+    if (viewElement->VolumeRenderer->GetViewProps()->GetNumberOfItems() < 1 ||
         viewElement->ProjectiveTextureMappingRenderer->GetViewProps()->GetNumberOfItems() < 1) {
         return;
     }

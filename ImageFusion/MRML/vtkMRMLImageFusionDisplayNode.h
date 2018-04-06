@@ -2,6 +2,8 @@
 
 #include <vtkMRMLDisplayNode.h>
 
+#include "vtkSlicerImageFusionModuleMRMLExport.h"
+
 class vtkMRMLVolumeRenderingDisplayNode;
 class vtkMRMLProjectiveTextureMappingDisplayNode;
 
@@ -10,7 +12,7 @@ class vtkMRMLProjectiveTextureMappingDisplayNode;
  *
  * Stores all data about an image fusion visualisiation
  */
-class vtkMRMLImageFusionDisplayNode : public vtkMRMLDisplayNode {
+class VTK_SLICER_IMAGEFUSION_MODULE_MRML_EXPORT vtkMRMLImageFusionDisplayNode : public vtkMRMLDisplayNode {
 public:
     /**
      * @brief Creates a new vtkMRMLImageFusionDisplayNode.
